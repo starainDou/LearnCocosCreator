@@ -128,10 +128,11 @@ function  doSomething(pair: [string, number]) {
 
 上面说一般情况是因为，元组 支持可选元素和扩展元素，造成元组实际长度不定。
 可选元素只出现在队尾
-type MyTuple = [number, string, bool?];
+type MyTuple = [number, string, boolean?];
 const tuple1: MyTuple = [1,  '2'];
 const tuple2: MyTuple = [1,  '2', true];
 
+// !!! CocosCreator2.4.x 不支持扩展元素
 扩展元素，类型前添加 ... 表示他是一个扩展元素
 type StringNumberBooleans = [string, number, ...boolean]; //前两个元素为string,number,剩下元素都为boolean
 type StringNumbersBoolean = [string, ...number, boolean]; //首尾两个元素为string,boolean,中间元素都为number

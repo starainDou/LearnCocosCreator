@@ -29,7 +29,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var BasicKnowledge_1 = require("./BasicKnowledge");
+var BasicKnowledge_1 = require("./Test/BasicKnowledge");
+var TestButton_1 = require("./Test/TestButton");
+var TestDelay_1 = require("./Test/TestDelay");
 // CocosCreator.app/Contents/Resources/static/template/new-script.ts
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var HomePage = /** @class */ (function (_super) {
@@ -39,25 +41,70 @@ var HomePage = /** @class */ (function (_super) {
         _this.label = null;
         _this.text = 'hello';
         return _this;
-        // update (dt) {}
     }
+    HomePage_1 = HomePage;
     // LIFE-CYCLE CALLBACKS:
     HomePage.prototype.onLoad = function () {
-        BasicKnowledge_1.default.sharedInstance.testStart();
+        // 设置分辨率
+        // EXACT_FIT 铺满可变形
+        // NO_BORDER 拉满裁剪多出部分
+        // SHOW_ALL 以允许留白形式展示整个场景
+        // FIXED_HEIGHT 高度合适
+        // FIXED_WIDTH 宽度合适
+        cc.view.setDesignResolutionSize(720, 1280, cc.ResolutionPolicy.FIXED_WIDTH);
+        // 获取分辨率
+        var designSize = cc.view.getDesignResolutionSize();
+        console.log('design size:', designSize.width, designSize.height);
+        console.log(this.name); // Canvas<HomePage>
+        TestButton_1.default.testDataTypeButton('data_type_button_node', this.node, this.onDataTypeButtonClick, this);
+        var nodes = TestButton_1.default.testNumberButton(this.node, this.constructor.name, 'onTestNumberButtonClick'); // HomePage.name 两种获取当前脚本名称方法 
+        this.scheduleOnce(function () {
+            var textHeight = nodes[1].getContentSize().height;
+            nodes[0].setContentSize(200, textHeight);
+            nodes[1].setContentSize(200, textHeight);
+        }, 0);
     };
     HomePage.prototype.start = function () {
     };
+    // update (dt) {}
+    HomePage.prototype.onDataTypeButtonClick = function () {
+        BasicKnowledge_1.default.sharedInstance.testDataType();
+        BasicKnowledge_1.default.sharedInstance.testString();
+        if (HomePage_1.prototype.onDataTypeButtonClick) {
+            console.log("当前方法信息:", HomePage_1.prototype.onDataTypeButtonClick);
+        }
+    };
+    HomePage.prototype.onTestNumberButtonClick = function (event, str) {
+        var node = event.target;
+        console.log('参数:' + str + " 描述:" + node.name + " type:" + event.type);
+        BasicKnowledge_1.default.sharedInstance.testNumber();
+    };
+    // 添加 Button，属性检查器中找到 Click Events 值加1，将Canvas拖入到cc.Node，选脚本，方法名
+    HomePage.prototype.onTestDelayButtonClick = function () {
+        TestDelay_1.default.testTimeOut();
+        TestDelay_1.default.testInterval();
+        TestDelay_1.default.testSchedule();
+    };
+    var HomePage_1;
+    __decorate([
+        property(cc.Button)
+    ], HomePage.prototype, "button_dataType", void 0);
     __decorate([
         property(cc.Label)
     ], HomePage.prototype, "label", void 0);
     __decorate([
         property
     ], HomePage.prototype, "text", void 0);
-    HomePage = __decorate([
+    HomePage = HomePage_1 = __decorate([
         ccclass
     ], HomePage);
     return HomePage;
 }(cc.Component));
 exports.default = HomePage;
+// Shift + Alt + F 格式化代码
+// VSCode屏蔽meta文件 Preferences->Setting->Search 'files.exclude'->Add Pattern->**/*.meta
+// 新建文件 Ctrl + Alt + Cmd + N
+// 文件名搜索 Cmd + P
+// 全部保存 Alt + Cmd + S
 
 cc._RF.pop();
