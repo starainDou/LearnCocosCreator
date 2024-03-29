@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.SceneAsset",
-    "_name": "TestGeneric",
+    "_name": "TestGenericScene",
     "_objFlags": 0,
     "_native": "",
     "scene": {

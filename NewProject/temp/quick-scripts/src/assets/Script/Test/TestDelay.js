@@ -51,6 +51,7 @@ var TestDelay = /** @class */ (function (_super) {
     };
     TestDelay.testSchedule = function () {
         var testDelay = new TestDelay();
+        testDelay.testScheduleOnce();
         testDelay.schedule(testDelay.localScheduleHandler, 1, 8, 3); // 继承cc.Component则可使用
         this.globalScheduler = cc.director.getScheduler(); // director上计时器
         this.globalScheduler.enableForTarget(testDelay); // 必须 enableForTarget 注册id
@@ -67,6 +68,13 @@ var TestDelay = /** @class */ (function (_super) {
     };
     TestDelay.prototype.globalScheduleHandler = function () {
         console.log('GlobalSchedule执行第' + this.scheduleIndex + '次');
+    };
+    TestDelay.prototype.testScheduleOnce = function () {
+        console.log('1.test scheduleOnce');
+        this.scheduleOnce(function () {
+            console.log('2.test scheduleOnce');
+        }, 0);
+        console.log('3.test scheduleOnce');
     };
     return TestDelay;
 }(cc.Component));

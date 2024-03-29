@@ -5,10 +5,10 @@ export namespace DDYTest {
     export let log = CC_EDITOR ? cc.log : console.log;
     export let rootNode: cc.Node = null;
     // 全局函数
-    export function randomNumber(from:number, to:number = 0): number {
+    export function randomNumber(from: number, to: number = 0): number {
         return (to - from) * Math.random() + from;
     }
-    export function randomInt(from:number, to:number = 0): number {
+    export function randomInt(from: number, to: number = 0): number {
         return ~~((to - from) * Math.random() + from);
     }
 }
@@ -48,19 +48,19 @@ export default class BasicKnowwledge {
      */
     public testDataType() {
         // 指定类型
-        const str: string =  'Home page string';
+        const str: string = 'Home page string';
         const num: number = 1; // ts不具体区分 int float double
         const isRequesting: boolean = false;
         let result: undefined = undefined;
-        let variable:null = null;
+        let variable: null = null;
         let list1: number[] = [1, 2, 3];
         let list2 = [4, 5, 6];
         let list3: Array<number> = [7, 8, 9];
         let map1: Map<string, number> = new Map();
         map1.set('key1', 1);
         let map2 = new Map([["a", 1], ["b", 2]]);
-        let mp3 = 
-        console.log(str + " 类型是：" + typeof str);
+        let mp3 =
+            console.log(str + " 类型是：" + typeof str);
         console.log(num + " 类型是：" + typeof num);
         console.log(isRequesting + " 类型是：" + typeof isRequesting);
         console.log(result + " 类型是：" + typeof result);
@@ -73,6 +73,22 @@ export default class BasicKnowwledge {
         console.log('反射枚举值', LocalDirection[0], LocalDirection[2]); // 0 undefined  2 NORTH
         console.log('enum Season', Season.SPRINT);
         console.log('enum IDCardSubfix', IDCardSubfix[0], IDCardSubfix.ONE, IDCardSubfix.X);
+
+        let argvNull: null = null;
+        let argvUndefinded: undefined = undefined;
+        let argvNever: never;
+        let argvUnknown: unknown;
+        argvUnknown = "true string";
+        this.testDefaultArgv();
+        this.testDefaultArgv(argvNull);
+        this.testDefaultArgv(argvUndefinded);
+        this.testDefaultArgv(argvNever);
+        //this.testDefaultArgv(argvUnknown); 
+
+        // string转number
+        let stringNumber1 = new Number('123');
+        let stringNumber2 = new Number("HeHe"); // NaN
+        console.log(stringNumber1, stringNumber2);
 
         let notSure: any = 666;
         console.log(notSure + " 类型是：" + typeof notSure); // 666 类型是：number
@@ -102,14 +118,9 @@ export default class BasicKnowwledge {
         // 上面说一般情况是因为，元组 支持可选元素和扩展元素，造成元组实际长度不定。可选元素只出现在队尾
         type MyTuple = [number, string, boolean?]; // type定义别名 结尾可选元素 元组
         const tuple1: MyTuple = [1, '2'];
-        const tuple2: MyTuple = [1,  '2', true];
+        const tuple2: MyTuple = [1, '2', true];
         console.log(tuple1 + " 类型是：" + typeof tuple1);
         console.log(tuple2 + " 类型是：" + typeof tuple2);
-        // 扩展元素，类型前添加 ... 表示他是一个扩展元素
-        // !!! CocosCreator2.4.x 不支持扩展元素
-        // type StringNumberBooleans = [string, number, ...boolean]; //前两个元素为string,number,剩下元素都为boolean
-        // type StringNumbersBoolean = [string, ...number, boolean]; //首尾两个元素为string,boolean,中间元素都为number
-        // type StringsNumberBoolean = [...string, number, boolean]; // 最后两个元素为number,boolean，前面元素为string
 
         // Void类型 某种程度上来说，void 类型像是与 any 类型相反，它表示没有任何类型。
         // 注意：声明 void 类型的变量没有什么作用，因为它的值只能为 undefined 或 null
@@ -237,6 +248,120 @@ export default class BasicKnowwledge {
         console.log(str1.slice(1, 3));
         console.log(str1.slice(-1, 3)); // 如果某个参数为负，则从字符串的结尾开始计数
         console.log(str1.slice(1, -3));
+    }
+    // 扩展元素，类型前添加 ...(扩展运算符) 表示他是一个扩展元素
+    // 函数参数中 ... 表示剩余参数
+    public testThreeDots(first: string, ...rest: string[]) {
+        console.log("first:", first);
+        for (let index = 0; index < rest.length; index++) {
+            console.log("rest index" + index + ":" + rest[index]);
+        }
+        // 元组中...Type[] 数组表示剩余部分
+        type StringNumberBooleans = [string, number, ...boolean[]]; //前两个元素为string,number,剩下元素都为boolean
+        type StringNumbersBoolean = [string, ...number[], boolean]; //首尾两个元素为string,boolean,中间元素都为number
+        type StringsNumberBoolean = [...string[], number, boolean]; // 最后两个元素为number,boolean，前面元素为string
+
+        // 数组或对象字面量中使用 ... 用来展开数组或对象中的元素，简化代码编写
+        const array1 = [1, 2, 3];
+        const array2 = [4, 5, 6];
+        const array3 = [7, 8, 9];
+        const array4 = array1.concat(array2, array3); // ES5合并
+        const array5 = [...array1, ...array2, ...array3]; // ES6合并
+        console.log("array4:" + array4 + " array5:" + array5);
+
+        console.log("array1 max:", Math.max.apply(null, array1)); // ES5 要调用apply展开数组
+        console.log("array2 max:", Math.max(...array2)); // ES6 ...运算符直接展开
+
+        const baseInfo = { name: 'Tom', age: 18 };
+        const allInfo = { gender: 'male', class: 6, ...baseInfo };
+        console.log("allInfo:", allInfo);
+        // 还可以字符串转字符数组
+        // Typescript 类型指令 https://blog.csdn.net/weixin_53312997/article/details/127551316
+        // @ts-ignore
+        var chars1 = [..."hello"].reverse(); // 注:任何实现了Iterator接口的对象都可使用...转换为数组
+        console.log(chars1) // ["h", "e", "l", "l", "o"]
+
+        // Map
+        let myMap = new Map([
+            [0, 'a'], [1, 'b'], [2, 'c']
+        ]);
+        myMap.set(3, 'd');// 设置值
+        // 根据key取value
+        console.log("key:2 对应的value:", myMap.get(2));
+        if (myMap.has(1)) { // 是否包含某个key bool
+            myMap.delete(1); // 根据key删除键值对
+        }
+        console.log('元素个数:', myMap.size); // size获取个数
+        // @ts-ignore
+        console.log("allKeys:" + [...Array.from(myMap.keys())]);
+        // @ts-ignore
+        console.log("allValues:" + [...Array.from(myMap.values())])
+
+        const map0 = new Map<string, string | number>([
+            ['name', 'James'],
+            ['age', 30],
+        ]);
+
+        // foreEach遍历 value在前，key在后
+        map0.forEach((value, key) => {
+            console.log(value, key); // 👉️ James name, 30 age
+        });
+        for (let value of Array.from(map0.values())) {
+            console.log("转为数组遍历value 1:", value); // 该方式打印出了值
+        }
+        for (let value in Array.from(map0.values())) {
+            console.log("转为数组遍历value 2:", value); // 该方式只打印出了序号 0,1
+        }
+        // @ts-ignore
+        for (const [key, value] of map0) { // 使用@ts-ignore否则 can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+            console.log(key, value); // 👉️ name James, age 30
+        }
+
+        // 日期构造
+        console.log("ES5:", new (Date.bind.apply(Date, [null, 2024, 1, 31])));
+        console.log("ES6:", new Date(...[2024, 1, 31]));
+        // 数组解构
+        const [x1, ...xn] = [1, 2, 3, 4, 5];
+        // @ts-ignore
+        const [y1, ...yn] = [];
+        console.log("x1:" + x1);
+        console.log("xn:" + xn);
+        console.log("y1:" + y1); // undefined
+        console.log("yn:" + yn); // 空
+
+        // 生成器
+        let makeNumber = function* () {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+        // @ts-ignore
+        console.log([...Array.from(makeNumber())]); // Array.from() // 转数组
+        console.log(Array.from('RemoteDev'));
+        console.log(Array.from(new Set([1, 2, 3, 4, 5, 6])));
+        console.log(Array.from({ length: 10 }, () => 'Item'));//生成10个Item
+        console.log(Array.of(1, 5, 7, 9));//将一组值转换成数组
+        // Typescript数组扩展使用 https://blog.csdn.net/fittec/article/details/125923425
+
+        var args = [2, 3];
+        // @ts-ignore
+        this.testFunctionParamExtension(1, ...args, 4, ...[5]);
+        this.testFunctionParamExtension.apply(null, [1, 2, 3, 4, 5]);
+    }
+
+    private static innerPrint(...infos: (string | number)[]) {
+        let log = 'doudoudoudianyu666666';
+        for (let index = 0; index < infos.length; index++) {
+            log += (" " + infos[index]);
+        }
+        console.log(log);
+    }
+    private testFunctionParamExtension(v, w, x, y, z) {
+        console.log("v" + v + " w:" + w + " x:" + x + " y:" + y + " z:" + z);
+    }
+
+    private testDefaultArgv(argv = "aaa") {
+        console.log("argv:" + argv + " " + typeof argv);
     }
 }
 

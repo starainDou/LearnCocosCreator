@@ -3,6 +3,14 @@ cc._RF.push(module, '743f5hcsDBPOZKBwX+lrE8f', 'HomePage');
 // Script/HomePage.ts
 
 "use strict";
+/*
+ * @Author: doudianyu doudianyu@huixuanjiasu.com
+ * @Date: 2023-12-25 17:04:56
+ * @LastEditors: doudianyu doudianyu@huixuanjiasu.com
+ * @LastEditTime: 2024-03-11 21:06:12
+ * @FilePath: /NewProject/assets/Script/HomePage.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -30,6 +38,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var BasicKnowledge_1 = require("./Test/BasicKnowledge");
+var EncryptUtil_1 = require("./Test/EncryptUtil");
 var TestButton_1 = require("./Test/TestButton");
 var TestDelay_1 = require("./Test/TestDelay");
 // CocosCreator.app/Contents/Resources/static/template/new-script.ts
@@ -63,6 +72,11 @@ var HomePage = /** @class */ (function (_super) {
             nodes[0].setContentSize(200, textHeight);
             nodes[1].setContentSize(200, textHeight);
         }, 0);
+        // let encrypted = TestCrypto.es_encryptAES("11111", "1234567890123456", "1234567890123456");
+        //let encrypted = TestCrypto.aesEncrypt("11111", "1234567890123456", "1234567890123456");
+        var encrypted = EncryptUtil_1.EncryptUtil.aesDecrypt("11111", "1234567890123456", "1234567890123456");
+        console.log("encrypted:", encrypted);
+        BasicKnowledge_1.default.sharedInstance.testThreeDots('aaa', 'bbb', 'ccc');
     };
     HomePage.prototype.start = function () {
     };

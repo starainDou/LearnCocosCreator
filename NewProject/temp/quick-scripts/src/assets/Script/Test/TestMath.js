@@ -38,6 +38,7 @@ var TestMath = /** @class */ (function () {
         // 小于等于 Math.floor(4.9)->4 Math.floor(-4.9)->-5 
         // 大于等于 Math.ceil(4.9)->5 Math.ceil(-4.9)->-4
         // 四舍五入 Math.round(4.4)->4 Math.round(4.5)->5
+        console.log('2和7中的较大值:' + Math.max(2, 5, 7));
     };
     return TestMath;
 }());

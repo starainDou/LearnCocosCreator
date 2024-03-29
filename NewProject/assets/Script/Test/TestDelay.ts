@@ -29,11 +29,13 @@ export default class TestDelay extends cc.Component {
 
     static testSchedule() {
         let testDelay = new TestDelay();
+        testDelay.testScheduleOnce();
         testDelay.schedule(testDelay.localScheduleHandler, 1, 8, 3); // 继承cc.Component则可使用
 
         this.globalScheduler  = cc.director.getScheduler(); // director上计时器
         this.globalScheduler.enableForTarget(testDelay);  // 必须 enableForTarget 注册id
         this.globalScheduler.schedule(testDelay.globalScheduleHandler, testDelay, 1, cc.macro.REPEAT_FOREVER, 3, false);
+        
     }
     private localScheduleHandler() {
         this.scheduleIndex++;
@@ -46,6 +48,14 @@ export default class TestDelay extends cc.Component {
     }
     private globalScheduleHandler() {
         console.log('GlobalSchedule执行第' + this.scheduleIndex + '次');
+    }
+
+    private testScheduleOnce() {
+        console.log('1.test scheduleOnce');
+        this.scheduleOnce(() => {
+            console.log('2.test scheduleOnce');
+        }, 0);
+        console.log('3.test scheduleOnce');
     }
 }
 // setTimeOut是延迟执行一次，setInterval是每间隔指定时间就执行一次

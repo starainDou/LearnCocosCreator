@@ -42,11 +42,11 @@ var TestButton = /** @class */ (function () {
         label.fontSize = 22;
         label.lineHeight = 26;
         label.useSystemFont = true;
-        label.overflow = cc.Label.Overflow.SHRINK; // 文字显示超出范围时的处理方式
+        label.overflow = cc.Label.Overflow.RESIZE_HEIGHT; // 文字显示超出范围时的处理方式
         label.enableWrapText = true; // 是否自动换行
         label.horizontalAlign = cc.Label.HorizontalAlign.LEFT;
         label.verticalAlign = cc.Label.VerticalAlign.CENTER;
-        labelNode.setContentSize(200, labelNode.height);
+        labelNode.setContentSize(200, 22);
         var clickEventHandler = new cc.Component.EventHandler();
         clickEventHandler.target = parent;
         clickEventHandler.component = component;
@@ -59,8 +59,10 @@ var TestButton = /** @class */ (function () {
         sprite.spriteFrame = this.backgroundSpriteFrame(DDYUtil_1.default.colorHex(0x993344));
         var button = buttonNode.addComponent(cc.Button);
         button.target = buttonNode;
-        button.normalColor = cc.Color.CYAN;
-        button.pressedColor = cc.Color.BLUE;
+        button.normalColor = cc.Color.RED; // 常态颜色
+        button.pressedColor = cc.Color.BLUE; // 点击颜色
+        button.hoverColor = cc.Color.GREEN; // 悬停颜色
+        button.disabledColor = cc.Color.GRAY; // 禁用颜色
         button.transition = cc.Button.Transition.COLOR;
         button.clickEvents.push(clickEventHandler);
         return [buttonNode, labelNode];
@@ -81,7 +83,7 @@ var TestButton = /** @class */ (function () {
         label.string = '点击我测试Number';
         label.fontSize = 30;
         label.useSystemFont = true;
-        //label.overflow = cc.Label.Overflow.RESIZE_HEIGHT; // 文字显示超出范围时的处理方式：自适应宽度
+        label.overflow = cc.Label.Overflow.RESIZE_HEIGHT; // 文字显示超出范围时的处理方式：自适应高度
         label.enableWrapText = true; // 是否自动换行
         label.horizontalAlign = cc.Label.HorizontalAlign.LEFT;
         var clickEventHandler = new cc.Component.EventHandler();
@@ -98,8 +100,10 @@ var TestButton = /** @class */ (function () {
         sprite.trim = false; // 是否使用裁剪模式
         sprite.type = cc.Sprite.Type.SLICED;
         var button = buttonNode.addComponent(cc.Button);
-        button.normalColor = cc.Color.CYAN;
-        button.pressedColor = cc.Color.BLUE;
+        button.normalColor = cc.Color.RED; // 常态颜色
+        button.pressedColor = cc.Color.BLUE; // 点击颜色
+        button.hoverColor = cc.Color.GREEN; // 悬停颜色
+        button.disabledColor = cc.Color.GRAY; // 禁用颜色
         button.transition = cc.Button.Transition.COLOR;
         //button.clickEvents.push(clickEventHandler);
     };

@@ -3,6 +3,51 @@ cc._RF.push(module, '17af4nvgkFAG6IvzTgl2IbN', 'BasicKnowledge');
 // Script/Test/BasicKnowledge.ts
 
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DDYTest = void 0;
 var bignumber_js_1 = require("bignumber.js");
@@ -92,6 +137,20 @@ var BasicKnowwledge = /** @class */ (function () {
         console.log('反射枚举值', LocalDirection[0], LocalDirection[2]); // 0 undefined  2 NORTH
         console.log('enum Season', Season.SPRINT);
         console.log('enum IDCardSubfix', IDCardSubfix[0], IDCardSubfix.ONE, IDCardSubfix.X);
+        var argvNull = null;
+        var argvUndefinded = undefined;
+        var argvNever;
+        var argvUnknown;
+        argvUnknown = "true string";
+        this.testDefaultArgv();
+        this.testDefaultArgv(argvNull);
+        this.testDefaultArgv(argvUndefinded);
+        this.testDefaultArgv(argvNever);
+        //this.testDefaultArgv(argvUnknown); 
+        // string转number
+        var stringNumber1 = new Number('123');
+        var stringNumber2 = new Number("HeHe"); // NaN
+        console.log(stringNumber1, stringNumber2);
         var notSure = 666;
         console.log(notSure + " 类型是：" + typeof notSure); // 666 类型是：number
         notSure = "Semlinker";
@@ -117,11 +176,6 @@ var BasicKnowwledge = /** @class */ (function () {
         var tuple2 = [1, '2', true];
         console.log(tuple1 + " 类型是：" + typeof tuple1);
         console.log(tuple2 + " 类型是：" + typeof tuple2);
-        // 扩展元素，类型前添加 ... 表示他是一个扩展元素
-        // !!! CocosCreator2.4.x 不支持扩展元素
-        // type StringNumberBooleans = [string, number, ...boolean]; //前两个元素为string,number,剩下元素都为boolean
-        // type StringNumbersBoolean = [string, ...number, boolean]; //首尾两个元素为string,boolean,中间元素都为number
-        // type StringsNumberBoolean = [...string, number, boolean]; // 最后两个元素为number,boolean，前面元素为string
         // Void类型 某种程度上来说，void 类型像是与 any 类型相反，它表示没有任何类型。
         // 注意：声明 void 类型的变量没有什么作用，因为它的值只能为 undefined 或 null
         var voidValue;
@@ -243,6 +297,127 @@ var BasicKnowwledge = /** @class */ (function () {
         console.log(str1.slice(1, 3));
         console.log(str1.slice(-1, 3)); // 如果某个参数为负，则从字符串的结尾开始计数
         console.log(str1.slice(1, -3));
+    };
+    // 扩展元素，类型前添加 ...(扩展运算符) 表示他是一个扩展元素
+    // 函数参数中 ... 表示剩余参数
+    BasicKnowwledge.prototype.testThreeDots = function (first) {
+        var rest = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            rest[_i - 1] = arguments[_i];
+        }
+        console.log("first:", first);
+        for (var index = 0; index < rest.length; index++) {
+            console.log("rest index" + index + ":" + rest[index]);
+        }
+        // 数组或对象字面量中使用 ... 用来展开数组或对象中的元素，简化代码编写
+        var array1 = [1, 2, 3];
+        var array2 = [4, 5, 6];
+        var array3 = [7, 8, 9];
+        var array4 = array1.concat(array2, array3); // ES5合并
+        var array5 = __spreadArrays(array1, array2, array3); // ES6合并
+        console.log("array4:" + array4 + " array5:" + array5);
+        console.log("array1 max:", Math.max.apply(null, array1)); // ES5 要调用apply展开数组
+        console.log("array2 max:", Math.max.apply(Math, array2)); // ES6 ...运算符直接展开
+        var baseInfo = { name: 'Tom', age: 18 };
+        var allInfo = __assign({ gender: 'male', class: 6 }, baseInfo);
+        console.log("allInfo:", allInfo);
+        // 还可以字符串转字符数组
+        // Typescript 类型指令 https://blog.csdn.net/weixin_53312997/article/details/127551316
+        // @ts-ignore
+        var chars1 = __spreadArrays("hello").reverse(); // 注:任何实现了Iterator接口的对象都可使用...转换为数组
+        console.log(chars1); // ["h", "e", "l", "l", "o"]
+        // Map
+        var myMap = new Map([
+            [0, 'a'], [1, 'b'], [2, 'c']
+        ]);
+        myMap.set(3, 'd'); // 设置值
+        // 根据key取value
+        console.log("key:2 对应的value:", myMap.get(2));
+        if (myMap.has(1)) { // 是否包含某个key bool
+            myMap.delete(1); // 根据key删除键值对
+        }
+        console.log('元素个数:', myMap.size); // size获取个数
+        // @ts-ignore
+        console.log("allKeys:" + __spreadArrays(Array.from(myMap.keys())));
+        // @ts-ignore
+        console.log("allValues:" + __spreadArrays(Array.from(myMap.values())));
+        var map0 = new Map([
+            ['name', 'James'],
+            ['age', 30],
+        ]);
+        // foreEach遍历 value在前，key在后
+        map0.forEach(function (value, key) {
+            console.log(value, key); // 👉️ James name, 30 age
+        });
+        for (var _a = 0, _b = Array.from(map0.values()); _a < _b.length; _a++) {
+            var value = _b[_a];
+            console.log("转为数组遍历value 1:", value); // 该方式打印出了值
+        }
+        for (var value in Array.from(map0.values())) {
+            console.log("转为数组遍历value 2:", value); // 该方式只打印出了序号 0,1
+        }
+        // @ts-ignore
+        for (var _c = 0, map0_1 = map0; _c < map0_1.length; _c++) { // 使用@ts-ignore否则 can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+            var _d = map0_1[_c], key = _d[0], value = _d[1];
+            console.log(key, value); // 👉️ name James, age 30
+        }
+        // 日期构造
+        console.log("ES5:", new (Date.bind.apply(Date, [null, 2024, 1, 31])));
+        console.log("ES6:", new (Date.bind.apply(Date, __spreadArrays([void 0], [2024, 1, 31])))());
+        // 数组解构
+        var _e = [1, 2, 3, 4, 5], x1 = _e[0], xn = _e.slice(1);
+        // @ts-ignore
+        var _f = [], y1 = _f[0], yn = _f.slice(1);
+        console.log("x1:" + x1);
+        console.log("xn:" + xn);
+        console.log("y1:" + y1); // undefined
+        console.log("yn:" + yn); // 空
+        // 生成器
+        var makeNumber = function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, 1];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, 2];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, 3];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        };
+        // @ts-ignore
+        console.log(__spreadArrays(Array.from(makeNumber()))); // Array.from() // 转数组
+        console.log(Array.from('RemoteDev'));
+        console.log(Array.from(new Set([1, 2, 3, 4, 5, 6])));
+        console.log(Array.from({ length: 10 }, function () { return 'Item'; })); //生成10个Item
+        console.log(Array.of(1, 5, 7, 9)); //将一组值转换成数组
+        // Typescript数组扩展使用 https://blog.csdn.net/fittec/article/details/125923425
+        var args = [2, 3];
+        // @ts-ignore
+        this.testFunctionParamExtension.apply(this, __spreadArrays([1], args, [4], [5]));
+        this.testFunctionParamExtension.apply(null, [1, 2, 3, 4, 5]);
+    };
+    BasicKnowwledge.innerPrint = function () {
+        var infos = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            infos[_i] = arguments[_i];
+        }
+        var log = 'doudoudoudianyu666666';
+        for (var index = 0; index < infos.length; index++) {
+            log += (" " + infos[index]);
+        }
+        console.log(log);
+    };
+    BasicKnowwledge.prototype.testFunctionParamExtension = function (v, w, x, y, z) {
+        console.log("v" + v + " w:" + w + " x:" + x + " y:" + y + " z:" + z);
+    };
+    BasicKnowwledge.prototype.testDefaultArgv = function (argv) {
+        if (argv === void 0) { argv = "aaa"; }
+        console.log("argv:" + argv + " " + typeof argv);
     };
     BasicKnowwledge.sharedInstance = new BasicKnowwledge();
     return BasicKnowwledge;
